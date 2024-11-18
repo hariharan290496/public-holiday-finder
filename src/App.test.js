@@ -28,7 +28,6 @@ const mockHolidays = [
   },
 ];
 
-// Mock countries data
 const mockCountries = [
   { countryCode: "US", name: "United States" },
   { countryCode: "GB", name: "United Kingdom" },
@@ -39,22 +38,25 @@ describe("App Component", () => {
     fetch.mockClear();
   });
 
-  test("renders header and footer components", () => {
-    render(<App />);
+  test("renders header and footer components", async () => {
+    await act(async () => {
+      render(<App />);
+    });
     expect(screen.getByText("Public Holiday Finder")).toBeInTheDocument();
     expect(
       screen.getByText(/© 2024 Public Holiday Finder/i)
     ).toBeInTheDocument();
   });
 
-  test("renders country and year selectors", () => {
-    render(<App />);
+  test("renders country and year selectors", async () => {
+    await act(async () => {
+      render(<App />);
+    });
     expect(screen.getByText("Select Country")).toBeInTheDocument();
     expect(screen.getByText("Select Year")).toBeInTheDocument();
   });
 
   test("shows loading state and populates selectors with options", async () => {
-    // Mock  API response
     fetch.mockImplementationOnce(() =>
       Promise.resolve({
         ok: true,
@@ -63,6 +65,50 @@ describe("App Component", () => {
             { countryCode: "US", name: "United States" },
             { countryCode: "CA", name: "Canada" },
           ]),
+      })
+    );
+
+    await act(async () => {
+      render(<App />);
+    });
+
+    await waitFor(() =>
+      expect(screen.getByText("Select Country")).toBeInTheDocument()
+    );
+
+    const countrySelect = screen.getByLabelText(/select country/i);
+    await act(async () => {
+      await userEvent.click(countrySelect);
+    });
+
+    await waitFor(() =>
+      expect(screen.getByText("United States")).toBeInTheDocument()
+    );
+
+    await act(async () => {
+      const option = screen.getByText("United States");
+      await userEvent.click(option);
+
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+  });
+
+  test("displays error message when API call fails", async () => {
+    fetch.mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: true,
+        json: () =>
+          Promise.resolve([
+            { countryCode: "US", name: "United States" },
+            { countryCode: "CA", name: "Canada" },
+          ]),
+      })
+    );
+
+    fetch.mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: false,
+        status: 500,
       })
     );
 
@@ -78,7 +124,12 @@ describe("App Component", () => {
     await waitFor(() =>
       expect(screen.getByText("United States")).toBeInTheDocument()
     );
-
     userEvent.click(screen.getByText("United States"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("No holidays found for the selected country and year.")
+      ).toBeInTheDocument();
+    });
   });
 });
