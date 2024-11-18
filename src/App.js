@@ -7,6 +7,7 @@ import MonthSelector from "./components/MonthSelector";
 import HolidayList from "./components/HolidayList";
 import HolidayCalendar from "./components/HolidayCalendar";
 import Footer from "./components/Footer";
+import API_CONFIG from "./api";
 
 function App() {
   const currentYear = new Date().getFullYear();
@@ -25,7 +26,10 @@ function App() {
         setError("");
         try {
           const response = await fetch(
-            `https://date.nager.at/api/v3/PublicHolidays/${year}/${countryCode}`
+            `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.publicHolidays(
+              year,
+              countryCode
+            )}`
           );
           if (response.ok) {
             const data = await response.json();

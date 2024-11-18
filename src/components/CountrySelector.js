@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import API_CONFIG from "../api";
 
 function CountrySelector({ countryCode, setCountryCode }) {
   const [countries, setCountries] = useState([]);
@@ -9,7 +10,7 @@ function CountrySelector({ countryCode, setCountryCode }) {
     const fetchCountries = async () => {
       try {
         const response = await fetch(
-          "https://date.nager.at/api/v3/AvailableCountries"
+          `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.availableCountries}`
         );
 
         if (!response.ok) {
