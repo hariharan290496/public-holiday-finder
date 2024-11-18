@@ -6,8 +6,9 @@ import HolidayList from "./components/HolidayList";
 import Footer from "./components/Footer";
 
 function App() {
+  const currentYear = new Date().getFullYear();
   const [countryCode, setCountryCode] = useState("");
-  const [year, setYear] = useState("");
+  const [year, setYear] = useState(currentYear);
   const [holidays, setHolidays] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
