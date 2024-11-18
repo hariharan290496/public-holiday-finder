@@ -1,6 +1,6 @@
 import React from "react";
 
-function HolidayList({ holidays }) {
+function HolidayList({ holidays, selectedMonth }) {
   if (!holidays.length) {
     return <p className="text-center mt-6">No holidays to display.</p>;
   }
@@ -13,10 +13,25 @@ function HolidayList({ holidays }) {
     return `${day}/${month}/${year}`;
   };
 
+  const filteredHolidays = selectedMonth
+    ? holidays.filter(
+        (holiday) =>
+          new Date(holiday.date).getMonth() + 1 === parseInt(selectedMonth)
+      )
+    : holidays;
+
+  if (!filteredHolidays.length) {
+    return (
+      <p className="text-center mt-6 text-gray-700">
+        No holidays found for the selected month.
+      </p>
+    );
+  }
+
   return (
     <div className="overflow-x-auto mt-6">
       <table className="min-w-full bg-white rounded-lg shadow-lg border border-gray-200">
-        <thead className="bg-blue-500 text-white">
+        <thead className="bg-indigo-600 text-white">
           <tr>
             <th className="py-4 px-6 text-left font-bold uppercase tracking-wider">
               Date
@@ -33,7 +48,7 @@ function HolidayList({ holidays }) {
           </tr>
         </thead>
         <tbody>
-          {holidays.map((holiday, index) => (
+          {filteredHolidays.map((holiday, index) => (
             <tr
               key={index}
               className={`border-b ${

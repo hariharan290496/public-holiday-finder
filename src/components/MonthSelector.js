@@ -1,28 +1,31 @@
 import React from "react";
 import Select from "react-select";
 
-function YearSelector({ year, setYear }) {
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 20 }, (_, i) => currentYear - 10 + i);
-
-  const options = years.map((yr) => ({
-    value: yr,
-    label: yr.toString(),
+function MonthSelector({ selectedMonth, setSelectedMonth }) {
+  const monthOptions = Array.from({ length: 12 }, (_, i) => ({
+    value: i + 1,
+    label: new Date(0, i).toLocaleString("default", { month: "long" }),
   }));
 
+  // Handle selection change
   const handleChange = (selectedOption) => {
-    setYear(selectedOption ? selectedOption.value : "");
+    setSelectedMonth(selectedOption ? selectedOption.value : "");
   };
 
   return (
     <div className="mb-4">
       <label className="block text-sm font-medium text-gray-700 mb-1">
-        Select Year
+        Filter by Month
       </label>
       <Select
-        options={options}
+        options={[{ value: "", label: "All Months" }, ...monthOptions]}
         onChange={handleChange}
-        value={options.find((option) => option.value === year) || null}
+        value={
+          monthOptions.find((option) => option.value === selectedMonth) || {
+            value: "",
+            label: "All Months",
+          }
+        }
         className="react-select-container"
         classNamePrefix="react-select"
         styles={{
@@ -38,4 +41,4 @@ function YearSelector({ year, setYear }) {
   );
 }
 
-export default YearSelector;
+export default MonthSelector;

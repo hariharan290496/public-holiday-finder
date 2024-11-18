@@ -40,7 +40,6 @@ function CountrySelector({ countryCode, setCountryCode }) {
         options={options}
         onChange={handleChange}
         value={options.find((option) => option.value === countryCode) || null}
-        isClearable
         className="react-select-container"
         classNamePrefix="react-select"
         styles={{
