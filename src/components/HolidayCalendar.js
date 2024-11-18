@@ -12,6 +12,7 @@ function HolidayCalendar({ holidays, year }) {
     return acc;
   }, {});
 
+  //Holiday name
   const tileContent = ({ date, view }) => {
     if (view === "month" && holidayMap[date.toDateString()]) {
       return (
@@ -23,6 +24,7 @@ function HolidayCalendar({ holidays, year }) {
     return null;
   };
 
+  //restrict navigating to prev or next year
   const handleActiveDateChange = ({ activeStartDate }) => {
     const newYear = activeStartDate.getFullYear();
     if (newYear === year) {
