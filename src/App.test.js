@@ -54,7 +54,7 @@ describe("App Component", () => {
   });
 
   test("shows loading state and populates selectors with options", async () => {
-    // Mock the API response for fetching countries
+    // Mock  API response
     fetch.mockImplementationOnce(() =>
       Promise.resolve({
         ok: true,
@@ -66,26 +66,19 @@ describe("App Component", () => {
       })
     );
 
-    // Render the App component
     render(<App />);
 
-    // Wait for the country options to be loaded
     await waitFor(() =>
       expect(screen.getByText("Select Country")).toBeInTheDocument()
     );
 
-    // Use userEvent to simulate opening the dropdown and selecting "United States"
     const countrySelect = screen.getByLabelText(/select country/i);
-    userEvent.click(countrySelect); // Open the dropdown
+    userEvent.click(countrySelect);
 
-    // Wait for the dropdown options to be visible
     await waitFor(() =>
       expect(screen.getByText("United States")).toBeInTheDocument()
     );
 
-    // Click the "United States" option
     userEvent.click(screen.getByText("United States"));
-
-    // Now, the "United States" option should be selected, and you can proceed with further tests
   });
 });
