@@ -31,7 +31,7 @@ function HolidayList({ holidays, selectedMonth }) {
   return (
     <div className="overflow-x-auto mt-6" data-testid="holiday-list">
       <table className="min-w-full bg-white rounded-lg shadow-lg border border-gray-200">
-        <thead className="bg-indigo-600 text-white">
+        <thead className="bg-blue-600 text-white">
           <tr>
             <th className="py-4 px-6 text-left font-bold uppercase tracking-wider">
               Date
