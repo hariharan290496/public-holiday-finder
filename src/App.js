@@ -43,8 +43,8 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <Header />
-      <main className="flex-grow max-w-2xl mx-auto p-4">
-        <div className="bg-white p-6 rounded-lg shadow">
+      <main className="flex-grow max-w-4xl mx-auto p-8">
+        <div className="bg-white p-8 rounded-lg shadow-lg">
           <CountrySelector
             countryCode={countryCode}
             setCountryCode={setCountryCode}
