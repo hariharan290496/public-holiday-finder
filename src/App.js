@@ -52,8 +52,8 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <Header />
-      <main className="flex-grow max-w-4xl mx-auto p-8">
-        <div className="bg-white p-8 rounded-lg shadow-lg">
+      <main className="flex-grow w-full max-w-4xl mx-auto p-4 sm:p-8">
+        <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg">
           <CountrySelector
             countryCode={countryCode}
             setCountryCode={setCountryCode}
@@ -67,10 +67,10 @@ function App() {
           )}
 
           {holidays.length > 0 && (
-            <div className="flex justify-end mb-4 space-x-2">
+            <div className="flex flex-col sm:flex-row sm:justify-end mb-4 space-y-2 sm:space-y-0 sm:space-x-2">
               <button
                 onClick={() => setView("table")}
-                className={`flex items-center px-4 py-2 rounded shadow-md transition duration-150 ${
+                className={`flex items-center justify-center px-4 py-2 rounded shadow-md transition duration-150 ${
                   view === "table"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -80,7 +80,7 @@ function App() {
               </button>
               <button
                 onClick={() => setView("calendar")}
-                className={`flex items-center px-4 py-2 rounded shadow-md transition duration-150 ${
+                className={`flex items-center justify-center px-4 py-2 rounded shadow-md transition duration-150 ${
                   view === "calendar"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
