@@ -1,11 +1,13 @@
 import React from "react";
 
-function Header() {
+function Footer() {
   return (
-    <header className="text-center py-6 bg-blue-600 text-white">
-      <h1 className="text-3xl font-bold">Public Holiday Finder</h1>
-    </header>
+    <footer className="text-center py-4 bg-gray-200">
+      <p className="text-sm">
+        &copy; {new Date().getFullYear()} Public Holiday Finder
+      </p>
+    </footer>
   );
 }
 
-export default Header;
+export default Footer;
