@@ -12,6 +12,51 @@ function App() {
   const [holidays, setHolidays] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [availableCountries, setAvailableCountries] = useState([]);
+
+  //Available countries
+  useEffect(() => {
+    const fetchAvailableCountries = async () => {
+      try {
+        const response = await fetch(
+          "https://date.nager.at/api/v3/AvailableCountries"
+        );
+        const data = await response.json();
+        setAvailableCountries(data.map((country) => country.countryCode));
+      } catch (error) {
+        console.error("Error fetching available countries:", error);
+      }
+    };
+
+    fetchAvailableCountries();
+  }, []);
+
+  //User's country code
+  useEffect(() => {
+    const fetchUserLocation = async () => {
+      try {
+        const response = await fetch(
+          "https://ipinfo.io?token=YOUR_IPINFO_API_KEY"
+        ); // Replace with your API key
+        const data = await response.json();
+        if (data && data.country) {
+          //country availability check
+          if (availableCountries.includes(data.country)) {
+            setCountryCode(data.country);
+          } else {
+            console.warn("User country not available in Nager.Date API");
+            setCountryCode(""); // Reset country code if not available
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user location:", error);
+      }
+    };
+
+    if (availableCountries.length > 0) {
+      fetchUserLocation();
+    }
+  }, [availableCountries]);
 
   useEffect(() => {
     const fetchHolidays = async () => {
@@ -57,6 +102,11 @@ function App() {
             </div>
           ) : (
             !error && <HolidayList holidays={holidays} />
+          )}
+          {!countryCode && (
+            <p className="text-center text-yellow-500 mt-4">
+              Your country is not available. Please select a country manually.
+            </p>
           )}
         </div>
       </main>
