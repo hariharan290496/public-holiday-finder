@@ -29,7 +29,7 @@ function HolidayList({ holidays, selectedMonth }) {
   }
 
   return (
-    <div className="overflow-x-auto mt-6">
+    <div className="overflow-x-auto mt-6" data-testid="holiday-list">
       <table className="min-w-full bg-white rounded-lg shadow-lg border border-gray-200">
         <thead className="bg-indigo-600 text-white">
           <tr>

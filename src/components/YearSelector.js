@@ -16,10 +16,14 @@ function YearSelector({ year, setYear }) {
 
   return (
     <div className="mb-4">
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label
+        htmlFor="year-select"
+        className="block text-sm font-medium text-gray-700 mb-1"
+      >
         Select Year
       </label>
       <Select
+        inputId="year-select"
         options={options}
         onChange={handleChange}
         value={options.find((option) => option.value === year) || null}
@@ -28,8 +32,8 @@ function YearSelector({ year, setYear }) {
         styles={{
           control: (base) => ({
             ...base,
-            borderColor: "rgba(209, 213, 219)", //gray-300
-            "&:hover": { borderColor: "rgba(96, 165, 250)" }, //blue-500 on hover
+            borderColor: "rgba(209, 213, 219)",
+            "&:hover": { borderColor: "rgba(96, 165, 250)" },
             boxShadow: "none",
           }),
         }}

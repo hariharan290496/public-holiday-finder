@@ -94,7 +94,7 @@ function App() {
           {error && <p className="text-center text-red-500 mt-4">{error}</p>}
           {loading ? (
             <div className="flex justify-center mt-6">
-              <div className="loader"></div>
+              <div className="loader" data-testid="loader"></div>
             </div>
           ) : (
             !error &&

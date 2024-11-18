@@ -33,7 +33,7 @@ function HolidayCalendar({ holidays, year }) {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-6" data-testid="holiday-calendar">
       <Calendar
         tileContent={tileContent}
         minDetail="month"

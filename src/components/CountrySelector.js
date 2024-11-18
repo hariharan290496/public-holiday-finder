@@ -11,7 +11,13 @@ function CountrySelector({ countryCode, setCountryCode }) {
         const response = await fetch(
           "https://date.nager.at/api/v3/AvailableCountries"
         );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("data: ", data);
         setCountries(data);
 
         const formattedOptions = data.map((country) => ({
@@ -33,10 +39,14 @@ function CountrySelector({ countryCode, setCountryCode }) {
 
   return (
     <div className="mb-4">
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label
+        htmlFor="country-select"
+        className="block text-sm font-medium text-gray-700 mb-1"
+      >
         Select Country
       </label>
       <Select
+        inputId="country-select"
         options={options}
         onChange={handleChange}
         value={options.find((option) => option.value === countryCode) || null}
@@ -45,8 +55,8 @@ function CountrySelector({ countryCode, setCountryCode }) {
         styles={{
           control: (base) => ({
             ...base,
-            borderColor: "rgba(209, 213, 219)", //gray-300
-            "&:hover": { borderColor: "rgba(96, 165, 250)" }, //blue-500 on hover
+            borderColor: "rgba(209, 213, 219)",
+            "&:hover": { borderColor: "rgba(96, 165, 250)" },
             boxShadow: "none",
           }),
         }}
