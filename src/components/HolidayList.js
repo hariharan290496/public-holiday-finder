@@ -2,13 +2,13 @@ import React from "react";
 
 function HolidayList({ holidays, selectedMonth }) {
   if (!holidays.length) {
-    return <p className="text-center mt-6">No holidays to display.</p>;
+    return null;
   }
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is zero-based
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
@@ -23,7 +23,7 @@ function HolidayList({ holidays, selectedMonth }) {
   if (!filteredHolidays.length) {
     return (
       <p className="text-center mt-6 text-gray-700">
-        No holidays found for the selected month.
+        No holidays to display for the selected month.
       </p>
     );
   }

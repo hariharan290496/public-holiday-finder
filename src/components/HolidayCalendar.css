@@ -1,0 +1,16 @@
+
+.holiday-calendar {
+  width: 100%; 
+  max-width: 800px; 
+  font-size: 1.1rem;
+  margin: 0 auto; 
+}
+
+.react-calendar__tile {
+  height: 80px !important;
+}
+
+.react-calendar__tile--active {
+  background-color: #2563eb !important;
+  color: white !important;
+}
